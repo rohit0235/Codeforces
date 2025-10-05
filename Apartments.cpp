@@ -7,40 +7,56 @@ int main() {
     cin>>n>>m>>k;
 
     vector<int>a(n,0);
-    vector<int>b(n,0);
+    vector<int>b(m,0);
     for(int i=0;i<n;i++) cin>>a[i];
     for(int i=0;i<m;i++) cin>>b[i];
 
 
     sort(a.begin(),a.end());
     sort(b.begin(),b.end());
-int count = 0;
+    unordered_map<int,int>mp;
+    for(int i:b)mp[i]++;
+    int count = 0;
    for(int i=0;i<n;i++){
-    
-                int l=0;
-                int r=m-1;
-                int ans =-1;
-                    while (l<=r){
+                if (mp.find(a[i])!=mp.end()){
+                      count++;
+                      mp[a[i]]--;
+                      if (mp[a[i]]==0)mp.erase(a[i]);
+                }
+               else if (mp.find(a[i]-k)!=mp.end()){
+                      count++;
+                          mp[a[i]-k]--;
+                           if (mp[a[i]-k]==0)mp.erase(a[i]-k);
+                }
+               else  if (mp.find(a[i]+k)!=mp.end()){
+                      count++;
+                        mp[a[i]+k]--;
+                           if (mp[a[i]+k]==0)mp.erase(a[i]+k);
+                }
+                // int l=0;
+                // int r=m-1;
+                // int ans =-1;
+                //     while (l<=r){
                     
-                        int mid = l+(r-l)/2;
+                //         int mid = l+(r-l)/2;
 
-                        if (b[mid]-a[i]<=5 && b[mid]-a[i]>=0){
-                            ans = mid;
-                            r=mid-1;
-                        }
-                        else if (b[mid]-a[i]>5){
-                             r=mid-1;
-                        }
-                        else {
-                             l =mid+1;
-                        }
+                //         if (b[mid]-a[i]<=5 && b[mid]-a[i]>=0){
+                //             ans = mid;
+                //             r=mid-1;
+                //         }
+                //         else if (b[mid]-a[i]>5){
+                //              r=mid-1;
+                //         }
+                //         else {
+                //              l =mid+1;
+                //         }
                     
-                  }
-                 cout<<ans<<endl;
-                  if (ans!=-1) {
-                        count++;
-                        b[ans]=INT_MAX;
-                  }
+                //   }
+                //  cout<<ans<<endl;
+                //   if (ans!=-1) {
+                //         count++;
+                //         b[ans]=INT_MAX;
+                //   }
 
    }
 
