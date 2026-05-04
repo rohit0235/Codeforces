@@ -1,0 +1,58 @@
+// https://www.hackerearth.com/problem/algorithm/little-shino-and-prime-difference-38c91b0d-df362f49/?utm_source=new_practice
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <climits>
+
+using namespace std;
+typedef long long ll;
+
+vector<bool>isprime (ll n){
+        vector<bool>p(n+1,1);
+        p[0]=0;
+        p[1]=0;
+    
+		for(int i=2;i<=n;i++){
+
+			 if(p[i]==1){
+				   for(int j=2;j*i<=n;j++){
+					  p[j*i]=0;
+				   }
+			 }
+		}
+		
+		return p;
+};
+int main() {
+	 
+	    ll n;
+		cin>>n;
+         
+        vector<ll>inp(n,0);
+		for(int i=0;i<n;i++) cin>>inp[i];
+
+		ll maxi = *max_element(inp.begin(),inp.end());
+
+        vector<bool>prime = isprime(maxi);
+        // for(int i=0;i<=5;i++) cout<<prime[i]<<" ";
+		// cout<<endl;
+		ll maxe= -1;
+		ll mine= INT_MAX;
+
+		for(ll i =0;i<n;i++){
+			 
+			// cout<<inp[i]<<" ";
+			// cout<<prime[inp[i]]<<endl;;
+			 if(prime[inp[i]]){
+				  maxe = max(maxe, inp[i]);
+				  mine = min(mine, inp[i]);
+			 }
+		}
+
+		// cout<<maxe<<" "<<mine<<endl;
+
+		if((maxe==-1 && mine==INT_MAX ))cout<<-1<<endl;
+		else cout<<abs(maxe-mine);
+
+		  
+}
